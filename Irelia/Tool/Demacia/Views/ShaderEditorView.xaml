@@ -1,0 +1,41 @@
+﻿<ad:DocumentContent x:Class="Demacia.Views.ShaderEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock" 
+             xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:Command="clr-namespace:Demacia.Command"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <ad:DocumentContent.Resources>
+        <Command:CommandReference x:Key="SaveCommandRef" Command="{Binding SaveCommand}" />
+    </ad:DocumentContent.Resources>
+    <ad:DocumentContent.InputBindings>
+        <KeyBinding Key="S" Modifiers="Control" Command="{StaticResource SaveCommandRef}" />
+    </ad:DocumentContent.InputBindings>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Shader">
+                <MenuItem Header="_Save" Command="{Binding SaveCommand}" InputGestureText="Ctrl+S" />
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Undo" Command="Undo" />
+                <MenuItem Header="_Redo" Command="Redo" />
+                <Separator />
+                <MenuItem Header="Cu_t" Command="Cut" />
+                <MenuItem Header="_Copy" Command="Copy" />
+                <MenuItem Header="_Paste" Command="Paste" />
+                <MenuItem Header="_Delete" Command="Delete" />
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="_Word Wrap" IsCheckable="True" IsChecked="{Binding WordWrap, ElementName=textEditor}" />
+                <MenuItem Header="_Line Numbers" IsCheckable="True" IsChecked="{Binding ShowLineNumbers, ElementName=textEditor}" />
+                <MenuItem Header="Line _End" IsCheckable="True" IsChecked="{Binding Options.ShowEndOfLine, ElementName=textEditor}" />
+            </MenuItem>
+        </Menu>
+        <ae:TextEditor x:Name="textEditor" FontFamily="Consolas" FontSize="10pt" 
+                       SyntaxHighlighting="HLSL" ShowLineNumbers="True"
+                       Document="{Binding Document}"/>
+    </DockPanel>
+</ad:DocumentContent>

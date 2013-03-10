@@ -1,0 +1,39 @@
+<SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+<SOAP-ENV:Body>
+<a1:MaterialData id="ref-1" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/Irelia.Render/Irelia.Render%2C%20Version%3D1.0.0.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Dnull">
+<_x003C_Shader_x003E_k__BackingField id="ref-3">Engine\UberShader.fx</_x003C_Shader_x003E_k__BackingField>
+<_x003C_DiffuseTexture_x003E_k__BackingField xsi:null="1"/>
+<_x003C_UseNormalMap_x003E_k__BackingField>false</_x003C_UseNormalMap_x003E_k__BackingField>
+<_x003C_NormalTexture_x003E_k__BackingField xsi:null="1"/>
+<_x003C_AmbientColor_x003E_k__BackingField>
+<_x003C_r_x003E_k__BackingField>0</_x003C_r_x003E_k__BackingField>
+<_x003C_g_x003E_k__BackingField>0</_x003C_g_x003E_k__BackingField>
+<_x003C_b_x003E_k__BackingField>0</_x003C_b_x003E_k__BackingField>
+<_x003C_a_x003E_k__BackingField>0</_x003C_a_x003E_k__BackingField>
+</_x003C_AmbientColor_x003E_k__BackingField>
+<_x003C_DiffuseColor_x003E_k__BackingField>
+<_x003C_r_x003E_k__BackingField>0</_x003C_r_x003E_k__BackingField>
+<_x003C_g_x003E_k__BackingField>0</_x003C_g_x003E_k__BackingField>
+<_x003C_b_x003E_k__BackingField>0</_x003C_b_x003E_k__BackingField>
+<_x003C_a_x003E_k__BackingField>0</_x003C_a_x003E_k__BackingField>
+</_x003C_DiffuseColor_x003E_k__BackingField>
+<_x003C_EmissiveColor_x003E_k__BackingField>
+<_x003C_r_x003E_k__BackingField>0</_x003C_r_x003E_k__BackingField>
+<_x003C_g_x003E_k__BackingField>0</_x003C_g_x003E_k__BackingField>
+<_x003C_b_x003E_k__BackingField>0</_x003C_b_x003E_k__BackingField>
+<_x003C_a_x003E_k__BackingField>0</_x003C_a_x003E_k__BackingField>
+</_x003C_EmissiveColor_x003E_k__BackingField>
+<_x003C_SpecularPower_x003E_k__BackingField>0</_x003C_SpecularPower_x003E_k__BackingField>
+<_x003C_SpecularColor_x003E_k__BackingField>
+<_x003C_r_x003E_k__BackingField>0</_x003C_r_x003E_k__BackingField>
+<_x003C_g_x003E_k__BackingField>0</_x003C_g_x003E_k__BackingField>
+<_x003C_b_x003E_k__BackingField>0</_x003C_b_x003E_k__BackingField>
+<_x003C_a_x003E_k__BackingField>0</_x003C_a_x003E_k__BackingField>
+</_x003C_SpecularColor_x003E_k__BackingField>
+<_x003C_Technique_x003E_k__BackingField id="ref-4">SimpleEffect</_x003C_Technique_x003E_k__BackingField>
+<_x003C_UseOffsetMapping_x003E_k__BackingField>false</_x003C_UseOffsetMapping_x003E_k__BackingField>
+<_x003C_HeightMapTexture_x003E_k__BackingField xsi:null="1"/>
+<_x003C_OffsetHeight_x003E_k__BackingField>0</_x003C_OffsetHeight_x003E_k__BackingField>
+</a1:MaterialData>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

@@ -1,0 +1,58 @@
+﻿<Window x:Class="Demacia.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
+        xmlns:Views="clr-namespace:Demacia.Views"
+        xmlns:Command="clr-namespace:Demacia.Command"
+        Title="Demacia - Irelia Editor" Width="1024" Height="768">
+    <Window.Resources>
+        <Command:CommandReference x:Key="ExitCommandRef" Command="{Binding ExitCommand}" />
+        <Command:CommandReference x:Key="ShowAssetBrowserCommandRef" Command="{Binding ShowAssetBrowserCommand}" />
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="X" Modifiers="Control" Command="{StaticResource ExitCommandRef}" />
+        <KeyBinding Key="B" Modifiers="Control" Command="{StaticResource ShowAssetBrowserCommandRef}" />
+    </Window.InputBindings>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="E_xit" Command="{Binding ExitCommand}" InputGestureText="Ctrl+X" />
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="_Asset Browser" Command="{Binding ShowAssetBrowserCommand}" InputGestureText="Ctrl+B" />
+                <Separator />
+                <MenuItem Header="_Theme" ItemsSource="{Binding Themes}">
+                    <MenuItem.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="MenuItem.IsCheckable" Value="True" />
+                            <Setter Property="MenuItem.IsChecked" Value="{Binding IsCurrent}" />
+                            <Setter Property="MenuItem.Header" Value="{Binding Name}" />
+                            <Setter Property="MenuItem.Command" Value="{Binding ApplyCommand}" />
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="Bitmap Font Builder" Command="{Binding ExecuteBitmapFontBuilderCommand}" />
+            </MenuItem>
+        </Menu>
+        <Views:StatusBarView DockPanel.Dock="Bottom" DataContext="{Binding StatusBarViewModel}" />
+        <Grid>
+            <ad:DockingManager x:Name="dockingManager">
+                <ad:ResizingPanel Orientation="Vertical">
+                    <ad:ResizingPanel Orientation="Vertical">
+                        <ad:DocumentPane />
+                    </ad:ResizingPanel>
+                    <ad:DockablePane ad:ResizingPanel.ResizeHeight="200">
+                        <ad:DockableContent Title="Output" DataContext="{Binding OutputViewModel}">
+                            <Views:OutputView />
+                        </ad:DockableContent>
+                        <ad:DockableContent Title="Error List" DataContext="{Binding ErrorListViewModel}">
+                            <Views:ErrorListView />
+                        </ad:DockableContent>
+                    </ad:DockablePane>
+                </ad:ResizingPanel>
+            </ad:DockingManager>
+        </Grid>
+    </DockPanel>
+</Window>

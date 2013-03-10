@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Demacia.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Theme" Type="System.Uri" Scope="User">
+      <Value Profile="(Default)">/AvalonDock.Themes;component/themes/dev2010.xaml</Value>
+    </Setting>
+    <Setting Name="BitmapFontBuilderPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\..\..\..\..\External\Bitmap Font Builder\Bitmap Font Builder.exe</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

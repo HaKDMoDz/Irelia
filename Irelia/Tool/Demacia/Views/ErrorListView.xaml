@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="Demacia.Views.ErrorListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Utils="clr-namespace:Demacia.Utils"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             Loaded="UserControl_Loaded">
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top" HorizontalAlignment="Stretch">
+            <ToolBarTray.Resources>
+                <Style TargetType="{x:Type Control}">
+                    <Setter Property="ToolBar.OverflowMode" Value="Never" />
+                </Style>
+            </ToolBarTray.Resources>
+            <ToolBar ToolBarTray.IsLocked="True" Height="27" Loaded="ToolBar_Loaded">
+                <CheckBox IsChecked="{Binding ShowErrors}" Margin="2, 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding NumErrors}" />
+                        <TextBlock Text=" Errors" />
+                    </StackPanel>
+                </CheckBox>
+                <CheckBox IsChecked="{Binding ShowWarnings}" Margin="2, 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding NumWarnings}" />
+                        <TextBlock Text=" Warnings" />
+                    </StackPanel>
+                </CheckBox>
+                <CheckBox IsChecked="{Binding ShowInfos}" Margin="2, 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding NumInfos}" />
+                        <TextBlock Text=" Infos" />
+                    </StackPanel>
+                </CheckBox>
+                <CheckBox IsChecked="{Binding ShowVerboses}" Margin="2, 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding NumVerboses}" />
+                        <TextBlock Text=" Verboses" />
+                    </StackPanel>
+                </CheckBox>
+                <Separator />
+                <Button Content="Clear All" Command="{Binding ClearAllCommand}" />
+                <Separator ToolBar.OverflowMode="Never" />
+                <CheckBox Content="Auto Scroll"
+                          IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=AutoScroll}" />
+            </ToolBar>
+        </ToolBarTray>
+        <ListView x:Name="errorListView" ItemsSource="{Binding Logs}" Utils:ListViewColumnStretch.Stretch="True">
+            <ListView.Resources>
+                <DataTemplate x:Key="messageTemplate">
+                    <TextBlock Text="{Binding Path=Message}" x:Name="messageTextBox" />
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=Level}" Value="1">
+                            <Setter TargetName="messageTextBox" Property="Foreground" Value="Crimson" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Level}" Value="2">
+                            <Setter TargetName="messageTextBox" Property="Foreground" Value="RoyalBlue" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Level}" Value="3">
+                            <Setter TargetName="messageTextBox" Property="Foreground" Value="Black" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Level}" Value="4">
+                            <Setter TargetName="messageTextBox" Property="Foreground" Value="Gray" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Margin" Value="0" />
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Time.TimeOfDay}" Width="130" />
+                    <GridViewColumn Header="Message" CellTemplate="{StaticResource messageTemplate}" Width="Auto" />
+                    <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}" Width="100" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</UserControl>

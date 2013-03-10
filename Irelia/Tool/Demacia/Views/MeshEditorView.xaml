@@ -1,0 +1,38 @@
+﻿<ad:DocumentContent x:Class="Demacia.Views.MeshEditorView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"                    
+      xmlns:Views="clr-namespace:Demacia.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Mesh" />
+            <MenuItem Header="View">
+                <MenuItem Header="Normals"
+                          IsCheckable="True" IsChecked="{Binding IsNormalsShown}"/>
+                <MenuItem Header="Tangents"
+                          IsCheckable="True" IsChecked="{Binding IsTangentsShown}"/>
+                <MenuItem Header="Binormals"
+                          IsCheckable="True" IsChecked="{Binding IsBinormalsShown}"/>
+                <MenuItem Header="Show Grid Plane"
+                          IsCheckable="True" IsChecked="{Binding IsGridPlaneShown}" />
+                <Separator />
+                <MenuItem Header="Lock Camera" 
+                          IsCheckable="True" IsChecked="{Binding IsCameraLocked}" />
+            </MenuItem>
+            <MenuItem Header="Tool" />
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Views:RenderView DataContext="{Binding RenderViewModel}" />
+            <GridSplitter Width="3" VerticalAlignment="Stretch" />
+            <TextBlock Grid.Column="1" Text="Properties will be here" />
+        </Grid>
+    </DockPanel>
+</ad:DocumentContent>

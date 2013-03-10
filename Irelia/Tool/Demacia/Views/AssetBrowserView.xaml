@@ -1,0 +1,164 @@
+﻿<UserControl x:Class="Demacia.Views.AssetBrowserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Models="clr-namespace:Demacia.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        
+        <!-- Packages -->
+        <Grid Margin="0,0,6,3" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Content="Packages" FontSize="15" Style="{StaticResource DocumentForeground}" />
+            <TreeView Grid.Row="2" ItemsSource="{Binding AssetFolders}" SelectedItemChanged="TreeView_SelectedItemChanged">
+                <TreeView.Resources>
+                    <Style TargetType="TreeViewItem">
+                        <Setter Property="IsExpanded" Value="True" />
+                    </Style>
+                </TreeView.Resources>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding ChildFolders}" DataType="{x:Type Models:AssetFolder}">
+                        <StackPanel Orientation="Horizontal" Margin="1">
+                            <StackPanel.Style>
+                                <Style TargetType="{x:Type StackPanel}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="Background" 
+                                                    Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <!--<Image Source="{Binding Icon}" Height="16" />-->
+                            <TextBlock Text="{Binding Name}" />
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Grid>
+        
+        <!-- Grid splitter -->
+        <GridSplitter Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
+        
+        <!-- Asset list -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Content="Name Filter" Style="{StaticResource DocumentForeground}" />
+                <TextBox Grid.Column="1" Margin="0,0,3,0" x:Name="assetNameFilter"
+                         Text="{Binding AssetNameFilter, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="1" Content="Asset Type" Style="{StaticResource DocumentForeground}" />
+                <ItemsControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding AssetTypeFilters}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}" 
+                                      Margin="0,0,10,0" Style="{StaticResource DocumentForeground}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+            <ListBox Grid.Row="1"
+                 Margin="3"
+                 ItemsSource="{Binding ShownAssets}"
+                 SelectedValue="{Binding SelectedAsset}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" ItemWidth="150" HorizontalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="7">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ContextMenu>
+                                <ContextMenu ItemsSource="{Binding Operations}">
+                                    <ContextMenu.ItemContainerStyle>
+                                        <Style TargetType="MenuItem">
+                                            <Setter Property="Header" Value="{Binding Name}" />
+                                            <Setter Property="Command" Value="{Binding Command}" />
+                                        </Style>
+                                    </ContextMenu.ItemContainerStyle>
+                                </ContextMenu>
+                            </Grid.ContextMenu>
+                            <Grid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OpenCommand}" />
+                            </Grid.InputBindings>
+                            <Rectangle Grid.RowSpan="2"
+                                   Width="150"
+                                   Height="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                                   Fill="Black" />
+                            <TextBlock Text="{Binding AssetType.Name}" 
+                                       HorizontalAlignment="Center"
+                                       Foreground="LightGray" FontSize="11" />
+                            <Image Grid.Row="1" Source="{Binding Thumbnail}" />
+                            <Rectangle Grid.Row="1">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0.5, 0.0" EndPoint="0.5, 1.0">
+                                        <GradientStop Color="#00000000" Offset="0.85" />
+                                        <GradientStop Color="Black" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <TextBlock Grid.Row="1" Margin="3"
+                                       Text="{Binding ShortName}" 
+                                       TextAlignment="Left" VerticalAlignment="Bottom"
+                                       Foreground="White"
+                                       FontSize="11"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border x:Name="border" >
+                                        <ContentPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="border" Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect Color="Blue" ShadowDepth="0" BlurRadius="30" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </Grid>
+    </Grid>
+</UserControl>

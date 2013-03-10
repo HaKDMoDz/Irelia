@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Demacia.Views.OutputView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBarTray.Resources>
+                <Style TargetType="{x:Type Control}">
+                    <Setter Property="ToolBar.OverflowMode" Value="Never" />
+                </Style>
+            </ToolBarTray.Resources>
+            <ToolBar ToolBarTray.IsLocked="True" Height="27" Loaded="ToolBar_Loaded">
+                <Button Content="Copy" Command="Copy" CommandTarget="{Binding ElementName=textBox}" Margin="2,0" />
+                <Button Content="Clear All" Command="{Binding ClearAllCommand}" Margin="2,0" />
+            </ToolBar>
+        </ToolBarTray>
+        <TextBox x:Name="textBox" IsReadOnly="True" VerticalAlignment="Stretch"
+                 HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                 Text="{Binding OutputTexts, Mode=OneWay}"
+                 TextChanged="textBox_TextChanged"/>
+    </DockPanel>
+</UserControl>

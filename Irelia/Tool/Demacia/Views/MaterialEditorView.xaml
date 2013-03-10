@@ -1,0 +1,37 @@
+﻿<ad:DocumentContent x:Class="Demacia.Views.MaterialEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"                    
+             xmlns:extk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended"
+             xmlns:Views="clr-namespace:Demacia.Views"
+             xmlns:Command="clr-namespace:Demacia.Command"
+             mc:Ignorable="d"
+             Width="600" Height="300">
+    <ad:DocumentContent.Resources>
+        <Command:CommandReference x:Key="SaveCommandRef" Command="{Binding SaveCommand}" />
+    </ad:DocumentContent.Resources>
+    <ad:DocumentContent.InputBindings>
+        <KeyBinding Key="S" Modifiers="Control" Command="{StaticResource SaveCommandRef}" />
+    </ad:DocumentContent.InputBindings>
+    <DockPanel Style="{StaticResource DefaultBackground}">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Material">
+                <MenuItem Header="_Save" Command="{Binding SaveCommand}" InputGestureText="Ctrl+S" />
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Views:RenderView DataContext="{Binding RenderViewModel}" />
+            <GridSplitter Width="3" VerticalAlignment="Stretch" />
+            <extk:PropertyGrid Grid.Column="1" VerticalAlignment="Top"
+                               SelectedObject="{Binding MaterialEditor}"
+                               DisplaySummary="True"
+                               ShowAdvancedOptions="True" />
+        </Grid>
+    </DockPanel>
+</ad:DocumentContent>
